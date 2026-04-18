@@ -1,0 +1,20 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Label name="timerLabel" text="5" style="position: absolute; top: 76px; left: 872px; font-size: 120px; background-size: 100% 100%; transform-origin: center; height: 131px; width: 81px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; align-items: flex-end; align-content: flex-end; justify-content: space-between; align-self: center;"/>
+    <ui:VisualElement name="CardRoot" enabled="true" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center; width: 1622px; height: auto; aspect-ratio: 1.777778; align-self: flex-end; align-content: flex-start; transition-property: all, ignored; transition-duration: 0s, 0s; transition-timing-function: ease, ease; transition-delay: 0s, 0s; visibility: visible; overflow: visible; flex-wrap: nowrap; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+        <ui:VisualElement name="card0" style="width: 280px; height: 500px; flex-direction: column; justify-content: space-between; background-color: rgba(255, 255, 255, 0.5); align-items: center;">
+            <ui:Label name="name0" text="Card Name" style="white-space: nowrap; -unity-text-align: upper-center; font-size: 36px;"/>
+            <ui:Label name="desc0" text="ATK +100" style="-unity-text-align: upper-center; font-size: 36px;"/>
+            <ui:Button name="btn0" text="Select" style="width: 270px; height: 75px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="card1" style="width: 280px; height: 500px; flex-direction: column; justify-content: space-between; background-color: rgba(255, 255, 255, 0.5);">
+            <ui:Label name="name1" text="Card Name" style="-unity-text-align: upper-center; font-size: 36px;"/>
+            <ui:Label name="desc1" text="ATK +100" style="-unity-text-align: upper-center; font-size: 36px;"/>
+            <ui:Button name="btn1" text="Select" style="width: 270px; height: 75px;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="card2" style="width: 280px; height: 500px; flex-direction: column; justify-content: space-between; background-color: rgba(255, 255, 255, 0.5);">
+            <ui:Label name="name2" text="Card Name" style="-unity-text-align: upper-center; font-size: 36px;"/>
+            <ui:Label name="desc2" text="ATK +100" style="-unity-text-align: upper-center; font-size: 36px;"/>
+            <ui:Button name="btn2" text="Select" style="width: 270px; height: 75px;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
