@@ -10,9 +10,11 @@ namespace Temp.Game.Events
         public List<BuffData> Cards;
     }
 
-    public struct CardSelectedEvent
+    public class CardSelectedEvent
     {
         public int PlayerId;
-        public BuffData Selected;
+        public BuffData SelfCard;
+        public List<BuffData> OthersCards;
+        public int TargetPlayerId;
     }
 }

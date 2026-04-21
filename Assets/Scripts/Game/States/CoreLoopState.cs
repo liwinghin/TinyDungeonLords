@@ -67,7 +67,7 @@ namespace Temp.Game.States
             // 3️⃣ 訂閱玩家選擇
             using var sub = _resultSub.Subscribe(e =>
             {
-                selected = e.Selected;
+                selected = e.SelfCard;
             });
 
             // 4️⃣ 啟動 Timer（5秒）

@@ -3,6 +3,7 @@ using MessagePipe;
 using VContainer;
 using R3;
 using System.Collections.Generic;
+using System.Linq;
 using Temp.Game.Events;
 using Temp.Game.Buff;
 
@@ -14,10 +15,10 @@ namespace Temp.Game.UI.Card
 
         private ISubscriber<CardSelectionRequest> _requestSub;
         private IPublisher<CardSelectedEvent> _resultPub;
-
         private GameTimer _timer;
 
         private List<BuffData> _currentCards;
+        private BuffData _selectedCard;
 
         [Inject]
         public void Construct(
@@ -34,13 +35,21 @@ namespace Temp.Game.UI.Card
         {
             _requestSub.Subscribe(OnRequest);
 
-            view.OnCardClicked += OnClicked;
+            view.OnCardClicked += OnCardClicked;
+            view.OnTargetClicked += OnTargetClicked;
 
             _timer.Time.Subscribe(t =>
             {
                 view.SetTimer(t);
             });
         }
+
+        public void Show(List<BuffData> cards)
+        {
+            _currentCards = cards;
+            view.Show(cards);
+        }
+
 
         private void OnRequest(CardSelectionRequest req)
         {
@@ -51,21 +60,37 @@ namespace Temp.Game.UI.Card
             }
 
             _currentCards = req.Cards;
+            _selectedCard = null;
+
             view.Show(req.Cards);
         }
 
-        private void OnClicked(int index)
+        private void OnCardClicked(int index)
         {
-            var selected = _currentCards[index];
+            if (_currentCards == null) return;
+
+            _selectedCard = _currentCards[index];
+
+            view.ApplySelectionStyle(index);
+            view.ShowTarget();             
+        }
+
+        private void OnTargetClicked(int targetPlayerId)
+        {
+            if (_selectedCard == null) return;
+
+            var others = _currentCards.Where(c => c != _selectedCard).ToList();
 
             _resultPub.Publish(new CardSelectedEvent
             {
                 PlayerId = 0,
-                Selected = selected
+                SelfCard = _selectedCard,
+                OthersCards = others,
+                TargetPlayerId = targetPlayerId
             });
 
             view.Hide();
-            Debug.Log("Hide UI called");
+            Debug.Log("Card + Target Selected");
         }
     }
 }
