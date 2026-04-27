@@ -10,6 +10,11 @@ namespace Temp.Game.Buff
         Rare,
         Epic
     }
+    public enum BuffType
+    {
+        PlayerBuff,
+        MonsterDebuff
+    }
 
     [CreateAssetMenu(menuName = "Game/Buff")]
     public class BuffData : ScriptableObject
@@ -20,6 +25,16 @@ namespace Temp.Game.Buff
 
         public int AttackBonus;
         public int DefenseBonus;
+
+        public string Name;
+        public string Description;
+
+        public BuffType Type;
+
+        public float AtkMultiplier; // 0.3 = +30%
+        public float HpMultiplier;
+
+
 
         public void Apply(PlayerStats stats)
         {

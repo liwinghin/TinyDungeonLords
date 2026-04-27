@@ -16,3 +16,8 @@ MonoBehaviour:
   Rarity: 1
   AttackBonus: 0
   DefenseBonus: 200
+  Name: DEF_200
+  Description: DEF_200
+  Type: 0
+  AtkMultiplier: 0
+  HpMultiplier: 0.2

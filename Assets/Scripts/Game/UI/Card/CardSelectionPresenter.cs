@@ -19,6 +19,7 @@ namespace Temp.Game.UI.Card
 
         private List<BuffData> _currentCards;
         private BuffData _selectedCard;
+        private int _selectedIndex = -1;
 
         [Inject]
         public void Construct(
@@ -47,6 +48,8 @@ namespace Temp.Game.UI.Card
         public void Show(List<BuffData> cards)
         {
             _currentCards = cards;
+            _selectedCard = null;
+            _selectedIndex = -1;
             view.Show(cards);
         }
 
@@ -61,6 +64,7 @@ namespace Temp.Game.UI.Card
 
             _currentCards = req.Cards;
             _selectedCard = null;
+            _selectedIndex = -1;
 
             view.Show(req.Cards);
         }
@@ -69,6 +73,7 @@ namespace Temp.Game.UI.Card
         {
             if (_currentCards == null) return;
 
+            _selectedIndex = index;
             _selectedCard = _currentCards[index];
 
             view.ApplySelectionStyle(index);
@@ -77,9 +82,11 @@ namespace Temp.Game.UI.Card
 
         private void OnTargetClicked(int targetPlayerId)
         {
-            if (_selectedCard == null) return;
+            if (_selectedCard == null || _selectedIndex < 0) return;
 
-            var others = _currentCards.Where(c => c != _selectedCard).ToList();
+            var others = _currentCards
+                .Where((_, index) => index != _selectedIndex)
+                .ToList();
 
             _resultPub.Publish(new CardSelectedEvent
             {

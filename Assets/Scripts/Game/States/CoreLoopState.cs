@@ -8,6 +8,7 @@ using Temp.Game.Context;
 using Temp.Game.Systems;
 using Temp.Game.Buff;
 using Temp.Game.Events;
+using Temp.Game.Combat;
 
 namespace Temp.Game.States
 {
@@ -23,6 +24,9 @@ namespace Temp.Game.States
         private readonly IPublisher<CardSelectionRequest> _requestPub;
         private readonly ISubscriber<CardSelectedEvent> _resultSub;
 
+        private readonly MonsterModifier _modifier;
+        private readonly MonsterSpawnSystem _spawnSystem;
+
         public CoreLoopState(
             GameStateMachine fsm,
             GameStateFactory factory,
@@ -31,7 +35,9 @@ namespace Temp.Game.States
             CardSystem cardSystem,
             IPublisher<CardSelectionRequest> requestPub,
             ISubscriber<CardSelectedEvent> resultSub,
-            GameTimer timer)
+            GameTimer timer,
+            MonsterModifier modifier,
+            MonsterSpawnSystem spawnSystem)
         {
             _fsm = fsm;
             _factory = factory;
@@ -41,11 +47,16 @@ namespace Temp.Game.States
             _requestPub = requestPub;
             _resultSub = resultSub;
             _timer = timer;
+            _modifier = modifier;
+            _spawnSystem = spawnSystem;
         }
 
         public async UniTask Enter()
         {
             Debug.Log("=== CoreLoop ===");
+
+            _spawnSystem.DespawnAll();
+            _modifier.Clear();
 
             // =========================
             // 1. 卡片選擇（UI + MessagePipe）
@@ -81,8 +92,25 @@ namespace Temp.Game.States
             // 6️⃣ 如果沒選 → 隨機
             if (selected == null)
             {
-                selected = cards[Random.Range(0, cards.Count)];
-                Debug.Log("Timeout → Random Pick");
+                int selectedIndex = Random.Range(0, cards.Count);
+                int targetPlayerId = Random.Range(1, 3);
+
+                selected = cards[selectedIndex];
+
+                var others = new List<BuffData>();
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    if (i == selectedIndex) continue;
+                    others.Add(cards[i]);
+                }
+
+                foreach (var other in others)
+                {
+                    _modifier.AddModifier(targetPlayerId, other);
+                    Debug.Log($"Timeout Add Modifier to {targetPlayerId}");
+                }
+
+                Debug.Log($"Timeout → Random Pick, Target Player {targetPlayerId}");
             }
 
             // 7️⃣ 套用 Buff
@@ -118,7 +146,15 @@ namespace Temp.Game.States
                 Debug.Log($"Player {player.Id} ATK = {rt.Stats.Attack} DEF = {rt.Stats.Defense}");
             }
 
+            // 👉 每個玩家生成怪
+            for (int i = 0; i < 3; i++)
+            {
+                _spawnSystem.SpawnForPlayer(i);
+            }
+
+
             await UniTask.Delay(2000);
+            _spawnSystem.DespawnAll();
 
             // =========================
             // 3. 下一回合
@@ -130,6 +166,7 @@ namespace Temp.Game.States
 
         public UniTask Exit()
         {
+            _spawnSystem.DespawnAll();
             return UniTask.CompletedTask;
         }
     }

@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f059492531b6f445a703a97147bd20f, type: 3}
   m_Name: ATK_100
   m_EditorClassIdentifier: Assembly-CSharp::Temp.Game.Buff.BuffData
-  Id: ATK_100
+  Id: 0
+  Rarity: 0
   AttackBonus: 100
   DefenseBonus: 0
+  Name: ATK_100
+  Description: ATK_100
+  Type: 0
+  AtkMultiplier: 0.1
+  HpMultiplier: 0

@@ -2,19 +2,19 @@
     <ui:Label name="timerLabel" text="5" style="position: absolute; top: 76px; left: 872px; font-size: 120px;"/>
     <ui:VisualElement name="CardRoot" style="flex-grow: 1; flex-direction: row; justify-content: space-around; align-items: center;">
         <ui:VisualElement name="card0" style="width: 280px; height: 300px; background-color: rgba(255, 255, 255, 0.5); align-items: center;">
-            <ui:Label name="name0"/>
-            <ui:Label name="desc0"/>
-            <ui:Button name="btn0" text="Select"/>
+            <ui:Label name="name0" text="NAME" style="height: 58px; width: 202px; -unity-text-align: middle-center; white-space: pre-wrap; font-size: 26px;"/>
+            <ui:Label name="desc0" text="" style="height: 163px; width: 256px; align-content: auto; align-items: auto; flex-wrap: nowrap; flex-direction: column; -unity-text-align: middle-center; white-space: pre-wrap; font-size: 28px;"/>
+            <ui:Button name="btn0" text="Select" style="-unity-text-align: middle-center;"/>
         </ui:VisualElement>
         <ui:VisualElement name="card1" style="width: 280px; height: 300px; background-color: rgba(255, 255, 255, 0.5); align-items: center;">
-            <ui:Label name="name1"/>
-            <ui:Label name="desc1"/>
-            <ui:Button name="btn1" text="Select"/>
+            <ui:Label name="name1" text="" style="height: 58px; width: 202px; -unity-text-align: middle-center; white-space: pre-wrap; font-size: 26px;"/>
+            <ui:Label name="desc1" text="" style="height: 163px; width: 256px; -unity-text-align: middle-center; white-space: pre-wrap; font-size: 28px;"/>
+            <ui:Button name="btn1" text="Select" style="-unity-text-align: middle-center;"/>
         </ui:VisualElement>
         <ui:VisualElement name="card2" style="width: 280px; height: 300px; background-color: rgba(255, 255, 255, 0.5); align-items: center;">
-            <ui:Label name="name2"/>
-            <ui:Label name="desc2"/>
-            <ui:Button name="btn2" text="Select"/>
+            <ui:Label name="name2" style="height: 58px; width: 202px; -unity-text-align: middle-center; white-space: pre-wrap; font-size: 26px;"/>
+            <ui:Label name="desc2" style="height: 163px; width: 256px; align-items: center; justify-content: center; -unity-text-align: middle-center; white-space: pre-wrap; font-size: 28px;"/>
+            <ui:Button name="btn2" text="Select" style="-unity-text-align: middle-center;"/>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="targetRoot" style="position: absolute; bottom: 80px; left: 0; right: 0; flex-direction: row; justify-content: center; display: none;">

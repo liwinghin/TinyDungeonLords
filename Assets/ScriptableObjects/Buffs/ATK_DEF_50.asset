@@ -16,3 +16,8 @@ MonoBehaviour:
   Rarity: 0
   AttackBonus: 50
   DefenseBonus: 50
+  Name: ATK_DEF_50
+  Description: ATK_DEF_50
+  Type: 0
+  AtkMultiplier: 0.05
+  HpMultiplier: 0.05

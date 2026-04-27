@@ -12,6 +12,7 @@ using Temp.Game.Context;
 using Temp.Game.Buff;
 using Temp.Core;
 using Temp.Game.UI.Card;
+using Temp.Game.Combat;
 
 namespace Temp.DI
 {
@@ -21,7 +22,7 @@ namespace Temp.DI
 
         protected override void Configure(IContainerBuilder builder)
         {
-            var options = builder.RegisterMessagePipe();
+            var options = builder.RegisterMessagePipe(/* global = true */);
 
             // UIŠÖ˜A
             builder.RegisterComponentInHierarchy<CardSelectionPresenter>();
@@ -31,6 +32,7 @@ namespace Temp.DI
             builder.RegisterMessageBroker<PlayerSelectDungeonEvent>(options);
             builder.RegisterMessageBroker<CardSelectionRequest>(options);
             builder.RegisterMessageBroker<CardSelectedEvent>(options);
+            builder.RegisterEntryPoint<CardResolveSystem>();
 
             // SystemŠÖ˜A
             builder.Register<GameStateMachine>(Lifetime.Singleton);
@@ -56,6 +58,11 @@ namespace Temp.DI
             builder.RegisterEntryPoint<GameEntryPoint>();
             builder.RegisterInstance(cardPool);
 
+            // Enemy
+            builder.Register<MonsterModifier>(Lifetime.Singleton);
+            builder.Register<MonsterFactory>(Lifetime.Singleton);
+            builder.Register<MonsterSpawnSystem>(Lifetime.Singleton);
+            builder.RegisterComponentInHierarchy<MonsterSpawner>();
 
         }
     }
